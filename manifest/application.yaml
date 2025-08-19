@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: zh-app
+spec:
+  project: default
+  source:
+    repoURL: "https://github.com/zacharykwek15/gitops-demo.git"
+    targetRevision: main
+    path: <path_to_manifest_directory> (depends on which folder it's in)
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: zh-ns
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
